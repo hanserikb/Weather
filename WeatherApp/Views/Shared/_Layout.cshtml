@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <!--<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />-->
+    <link href="@Url.Content("~/Content/css/old.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/base.css")" rel="stylesheet" type="text/css" />
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" rel="Stylesheet"" type="text/css" />
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div class="topbar" data-scrollspy="scrollspy">
+    <div class="topbar-inner">
+      <div class="container">
+        @Html.ActionLink("Weather", "Index", "Home", null, new { @class = "brand" })
+        <ul id="nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+        </ul>
+
+        <div class="pull-right">
+        @*<div id="logindisplay">
+                @Html.Partial("_LogOnPartial")
+        </div>*@
+
+            <form  method="post">
+              <input id="id_username" type="text" name="username" maxlength="30" /> <input type="password" name="password" id="id_password" />
+              <button type="submit" class="btn primary">Sign in</button>
+              <a  class="btn success" href="#">Register</a>
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<div id="map_canvas" style="margin-top:10px; width:100%; height:300px;">
+</div>
+
+    <div class="container">
+        <div class="content">
+                @RenderBody()
+            <div class="page-header">
+                <h2>About</h2>
+            </div>
+            <div class="row">
+                <div class="span-one-third">
+                    <h3>Weather</h3>
+                    <p>This web application has been made as a graduation project in two courses at Linnéuniversitetet; ASP.NET MVC3 & Webbteknik 2 </p>
+                </div>
+                <div class="span-one-third">
+                    <h3>YR.NO</h3>
+                    <p>Weather forecast from yr.no, delivered by the Norwegian Meteorological Institute and the NRK</p>
+                </div>
+                <div class="span-one-third">
+                    <h3>Author</h3>
+                    <address>
+                        <strong>Hans Bentlöv</strong> <br />
+                        hans@bentlov.se
+                        0766266799
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal" class="modal hide fade" style="display: none;">
+        <div class="modal-header">
+            <h3>Lorem ipsum</h3>
+        </div>
+        <div class="modal-body">
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn primary" onclick="$('#modal').modal('toggle')">OK</a>
+        </div>
+    </div>
+    @RenderSection("BodyEnd", false)
+</body>
+</html>

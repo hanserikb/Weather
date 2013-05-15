@@ -1,0 +1,22 @@
+﻿@model WeatherApp.ViewModels.HomeIndexViewModel
+<div id="modalFromBackend" class="modal hide fade" style="display: none;">
+        <div class="modal-header">
+            <h3>Error</h3>
+        </div>
+        <div class="modal-body">
+            <p>@Model.ModalMessage</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn primary" onclick="$('#modalFromBackend').modal('hide')">OK</a>
+        </div>
+</div>
+
+<script>
+    $(function () {
+        $('#modalFromBackend').modal('show');
+
+        $('#modalFromBackend').bind('hidden', function () {
+            $(this).remove();
+        })
+    });
+</script>

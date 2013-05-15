@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WeatherApp.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WeatherAppModelsStoreContainer">
+          <EntitySet Name="GeoName" EntityType="WeatherApp.Models.Store.GeoName" store:Type="Tables" Schema="app" />
+          <EntitySet Name="WeatherData" EntityType="WeatherApp.Models.Store.WeatherData" store:Type="Tables" Schema="app" />
+          <AssociationSet Name="FK_WeatherData_GeoName" Association="WeatherApp.Models.Store.FK_WeatherData_GeoName">
+            <End Role="GeoName" EntitySet="GeoName" />
+            <End Role="WeatherData" EntitySet="WeatherData" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="GeoName">
+          <Key>
+            <PropertyRef Name="locationId" />
+          </Key>
+          <Property Name="locationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="countyName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="countryName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="geoNameId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeatherData">
+          <Key>
+            <PropertyRef Name="weatherDataId" />
+          </Key>
+          <Property Name="locationId" Type="int" Nullable="false" />
+          <Property Name="weatherDataId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nextUpdate" Type="datetime2" Nullable="false" />
+          <Property Name="lastUpdate" Type="datetime2" Nullable="false" />
+          <Property Name="timeFrom" Type="datetime2" Nullable="false" />
+          <Property Name="timeTo" Type="datetime2" Nullable="false" />
+          <Property Name="period" Type="int" Nullable="false" />
+          <Property Name="symbolNumber" Type="int" Nullable="false" />
+          <Property Name="windDirection" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="windDegrees" Type="float" Nullable="false" />
+          <Property Name="windSpeed" Type="float" Nullable="false" />
+          <Property Name="temperature" Type="float" Nullable="false" />
+          <Property Name="pressure" Type="float" Nullable="false" />
+          <Property Name="precipitation" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_WeatherData_GeoName">
+          <End Role="GeoName" Type="WeatherApp.Models.Store.GeoName" Multiplicity="1" />
+          <End Role="WeatherData" Type="WeatherApp.Models.Store.WeatherData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeoName">
+              <PropertyRef Name="locationId" />
+            </Principal>
+            <Dependent Role="WeatherData">
+              <PropertyRef Name="locationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteWeatherData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
+          <Parameter Name="weatherDataId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteWeatherDataByLocationId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
+          <Parameter Name="locationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InserGeoName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
+          <Parameter Name="geoNameId" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="countyName" Type="varchar" Mode="In" />
+          <Parameter Name="countryName" Type="varchar" Mode="In" />
+          <Parameter Name="latitude" Type="float" Mode="In" />
+          <Parameter Name="longitude" Type="float" Mode="In" />
+        </Function>
+        <Function Name="InsertWeatherData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
+          <Parameter Name="locationId" Type="int" Mode="In" />
+          <Parameter Name="nextUpdate" Type="datetime2" Mode="In" />
+          <Parameter Name="lastUpdate" Type="datetime2" Mode="In" />
+          <Parameter Name="timeFrom" Type="datetime2" Mode="In" />
+          <Parameter Name="timeTo" Type="datetime2" Mode="In" />
+          <Parameter Name="period" Type="int" Mode="In" />
+          <Parameter Name="symbolNumber" Type="int" Mode="In" />
+          <Parameter Name="windDirection" Type="varchar" Mode="In" />
+          <Parameter Name="windDegrees" Type="float" Mode="In" />
+          <Parameter Name="windSpeed" Type="float" Mode="In" />
+          <Parameter Name="pressure" Type="float" Mode="In" />
+          <Parameter Name="temperature" Type="float" Mode="In" />
+          <Parameter Name="precipitation" Type="float" Mode="In" />
+        </Function>
+        <Function Name="UpdateGeoName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
+          <Parameter Name="locationId" Type="int" Mode="In" />
+          <Parameter Name="geoNameId" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="countyName" Type="varchar" Mode="In" />
+          <Parameter Name="countryName" Type="varchar" Mode="In" />
+          <Parameter Name="latitude" Type="float" Mode="In" />
+          <Parameter Name="longitude" Type="float" Mode="In" />
+        </Function>
+        <Function Name="UpdateWeatherData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="app">
+          <Parameter Name="WeatherDataId" Type="int" Mode="In" />
+          <Parameter Name="locationId" Type="int" Mode="In" />
+          <Parameter Name="nextUpdate" Type="datetime2" Mode="In" />
+          <Parameter Name="lastUpdate" Type="datetime2" Mode="In" />
+          <Parameter Name="timeFrom" Type="datetime2" Mode="In" />
+          <Parameter Name="timeTo" Type="datetime2" Mode="In" />
+          <Parameter Name="period" Type="int" Mode="In" />
+          <Parameter Name="symbolNumber" Type="int" Mode="In" />
+          <Parameter Name="windDirection" Type="varchar" Mode="In" />
+          <Parameter Name="windDegrees" Type="float" Mode="In" />
+          <Parameter Name="windSpeed" Type="float" Mode="In" />
+          <Parameter Name="pressure" Type="float" Mode="In" />
+          <Parameter Name="temperature" Type="float" Mode="In" />
+          <Parameter Name="precipitation" Type="float" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WeatherApp.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WeatherEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GeoNameSet" EntityType="WeatherApp.Models.GeoName" />
+          <EntitySet Name="WeatherDataSet" EntityType="WeatherApp.Models.WeatherData" />
+          <AssociationSet Name="FK_WeatherData_GeoName" Association="WeatherApp.Models.FK_WeatherData_GeoName">
+            <End Role="GeoName" EntitySet="GeoNameSet" />
+            <End Role="WeatherData" EntitySet="WeatherDataSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="GeoName">
+          <Key>
+            <PropertyRef Name="locationId" />
+          </Key>
+          <Property Name="locationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="countyName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="countryName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="geoNameId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WeatherDatas" Relationship="WeatherApp.Models.FK_WeatherData_GeoName" FromRole="GeoName" ToRole="WeatherData" />
+        </EntityType>
+        <EntityType Name="WeatherData">
+          <Key>
+            <PropertyRef Name="weatherDataId" />
+          </Key>
+          <Property Name="locationId" Type="Int32" Nullable="false" />
+          <Property Name="weatherDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nextUpdate" Type="DateTime" Nullable="false" />
+          <Property Name="lastUpdate" Type="DateTime" Nullable="false" />
+          <Property Name="timeFrom" Type="DateTime" Nullable="false" />
+          <Property Name="timeTo" Type="DateTime" Nullable="false" />
+          <Property Name="period" Type="Int32" Nullable="false" />
+          <Property Name="symbolNumber" Type="Int32" Nullable="false" />
+          <Property Name="windDirection" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="windDegrees" Type="Double" Nullable="false" />
+          <Property Name="windSpeed" Type="Double" Nullable="false" />
+          <Property Name="temperature" Type="Double" Nullable="false" />
+          <Property Name="pressure" Type="Double" Nullable="false" />
+          <Property Name="precipitation" Type="Double" Nullable="false" />
+          <NavigationProperty Name="GeoName" Relationship="WeatherApp.Models.FK_WeatherData_GeoName" FromRole="WeatherData" ToRole="GeoName" />
+        </EntityType>
+        <Association Name="FK_WeatherData_GeoName">
+          <End Role="GeoName" Type="WeatherApp.Models.GeoName" Multiplicity="1" />
+          <End Role="WeatherData" Type="WeatherApp.Models.WeatherData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeoName">
+              <PropertyRef Name="locationId" />
+            </Principal>
+            <Dependent Role="WeatherData">
+              <PropertyRef Name="locationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeatherAppModelsStoreContainer" CdmEntityContainer="WeatherEntities">
+          <EntitySetMapping Name="GeoNameSet"><EntityTypeMapping TypeName="WeatherApp.Models.GeoName"><MappingFragment StoreEntitySet="GeoName">
+            <ScalarProperty Name="locationId" ColumnName="locationId" />
+            <ScalarProperty Name="countyName" ColumnName="countyName" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="countryName" ColumnName="countryName" />
+            <ScalarProperty Name="latitude" ColumnName="latitude" />
+            <ScalarProperty Name="longitude" ColumnName="longitude" />
+            <ScalarProperty Name="geoNameId" ColumnName="geoNameId" />
+          </MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="WeatherApp.Models.GeoName">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="WeatherApp.Models.Store.InserGeoName">
+                  <ScalarProperty Name="longitude" ParameterName="longitude" />
+                  <ScalarProperty Name="latitude" ParameterName="latitude" />
+                  <ScalarProperty Name="countryName" ParameterName="countryName" />
+                  <ScalarProperty Name="countyName" ParameterName="countyName" />
+                  <ScalarProperty Name="name" ParameterName="name" />
+                  <ScalarProperty Name="geoNameId" ParameterName="geoNameId" />
+                  <ResultBinding Name="locationId" ColumnName="newLocationId" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="WeatherApp.Models.Store.UpdateGeoName">
+                  <ScalarProperty Name="longitude" ParameterName="longitude" Version="Current" />
+                  <ScalarProperty Name="latitude" ParameterName="latitude" Version="Current" />
+                  <ScalarProperty Name="countryName" ParameterName="countryName" Version="Current" />
+                  <ScalarProperty Name="countyName" ParameterName="countyName" Version="Current" />
+                  <ScalarProperty Name="name" ParameterName="name" Version="Current" />
+                  <ScalarProperty Name="geoNameId" ParameterName="geoNameId" Version="Current" />
+                  <ScalarProperty Name="locationId" ParameterName="locationId" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WeatherDataSet"><EntityTypeMapping TypeName="WeatherApp.Models.WeatherData"><MappingFragment StoreEntitySet="WeatherData">
+            <ScalarProperty Name="locationId" ColumnName="locationId" />
+            <ScalarProperty Name="weatherDataId" ColumnName="weatherDataId" />
+            <ScalarProperty Name="nextUpdate" ColumnName="nextUpdate" />
+            <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+            <ScalarProperty Name="timeFrom" ColumnName="timeFrom" />
+            <ScalarProperty Name="timeTo" ColumnName="timeTo" />
+            <ScalarProperty Name="period" ColumnName="period" />
+            <ScalarProperty Name="symbolNumber" ColumnName="symbolNumber" />
+            <ScalarProperty Name="windDirection" ColumnName="windDirection" />
+            <ScalarProperty Name="windDegrees" ColumnName="windDegrees" />
+            <ScalarProperty Name="windSpeed" ColumnName="windSpeed" />
+            <ScalarProperty Name="temperature" ColumnName="temperature" />
+            <ScalarProperty Name="pressure" ColumnName="pressure" />
+            <ScalarProperty Name="precipitation" ColumnName="precipitation" />
+          </MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="WeatherApp.Models.WeatherData">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="WeatherApp.Models.Store.InsertWeatherData">
+                  <ScalarProperty Name="precipitation" ParameterName="precipitation" />
+                  <ScalarProperty Name="temperature" ParameterName="temperature" />
+                  <ScalarProperty Name="pressure" ParameterName="pressure" />
+                  <ScalarProperty Name="windSpeed" ParameterName="windSpeed" />
+                  <ScalarProperty Name="windDegrees" ParameterName="windDegrees" />
+                  <ScalarProperty Name="windDirection" ParameterName="windDirection" />
+                  <ScalarProperty Name="symbolNumber" ParameterName="symbolNumber" />
+                  <ScalarProperty Name="period" ParameterName="period" />
+                  <ScalarProperty Name="timeTo" ParameterName="timeTo" />
+                  <ScalarProperty Name="timeFrom" ParameterName="timeFrom" />
+                  <ScalarProperty Name="lastUpdate" ParameterName="lastUpdate" />
+                  <ScalarProperty Name="nextUpdate" ParameterName="nextUpdate" />
+                  <ScalarProperty Name="locationId" ParameterName="locationId" />
+                  <ResultBinding Name="weatherDataId" ColumnName="NewWeatherDataId" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="WeatherApp.Models.Store.UpdateWeatherData">
+                  <ScalarProperty Name="weatherDataId" ParameterName="WeatherDataId" Version="Current" />
+                  <ScalarProperty Name="precipitation" ParameterName="precipitation" Version="Current" />
+                  <ScalarProperty Name="temperature" ParameterName="temperature" Version="Current" />
+                  <ScalarProperty Name="pressure" ParameterName="pressure" Version="Current" />
+                  <ScalarProperty Name="windSpeed" ParameterName="windSpeed" Version="Current" />
+                  <ScalarProperty Name="windDegrees" ParameterName="windDegrees" Version="Current" />
+                  <ScalarProperty Name="windDirection" ParameterName="windDirection" Version="Current" />
+                  <ScalarProperty Name="symbolNumber" ParameterName="symbolNumber" Version="Current" />
+                  <ScalarProperty Name="period" ParameterName="period" Version="Current" />
+                  <ScalarProperty Name="timeTo" ParameterName="timeTo" Version="Current" />
+                  <ScalarProperty Name="timeFrom" ParameterName="timeFrom" Version="Current" />
+                  <ScalarProperty Name="lastUpdate" ParameterName="lastUpdate" Version="Current" />
+                  <ScalarProperty Name="nextUpdate" ParameterName="nextUpdate" Version="Current" />
+                  <ScalarProperty Name="locationId" ParameterName="locationId" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="WeatherApp.Models.Store.DeleteWeatherData">
+                  <ScalarProperty Name="weatherDataId" ParameterName="weatherDataId" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="WeatherAppDataModel" ZoomLevel="92">
+        <EntityTypeShape EntityType="WeatherApp.Models.GeoName" Width="1.5" PointX="3.25" PointY="0.75" Height="2.2496956380208344" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatherApp.Models.WeatherData" Width="1.5" PointX="6.625" PointY="0.75" Height="3.400126953125" IsExpanded="true" />
+        <AssociationConnector Association="WeatherApp.Models.FK_WeatherData_GeoName" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.75" PointY="1.8748478190104172" />
+          <ConnectorPoint PointX="6.625" PointY="1.8748478190104172" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

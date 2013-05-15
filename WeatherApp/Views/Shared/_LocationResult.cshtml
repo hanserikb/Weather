@@ -1,0 +1,28 @@
+﻿@model WeatherApp.ViewModels.HomeIndexViewModel
+           
+@{
+    var WeatherCastOptions = new AjaxOptions
+    {
+        UpdateTargetId = "location"
+ 
+    };
+}
+
+@if (Model != null && Model.GeoNames.Any())
+{
+    <div id="locations">
+        <h2>Locations</h2>
+        <ul>
+        @foreach (var geoname in Model.GeoNames)
+        {
+		    <li>@Ajax.ActionLink(@geoname.countryName + " - " + @geoname.countyName + " - " + @geoname.name, "Forecast", new { Country = @geoname.countryName, CountyName = @geoname.countyName, LocationName = @geoname.name }, WeatherCastOptions, new { @class = "weatherLink", data_lat = @geoname.latitude, data_lng = @geoname.longitude }) </li>
+        }   
+        </ul>
+
+    </div>
+    
+}
+<script>
+    renderMapMarkers();
+    $("#locations").hide().slideToggle();
+</script>

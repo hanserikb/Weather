@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<geonames style="MEDIUM">
+<totalResultsCount>5</totalResultsCount>
+<geoname>
+<toponymName>Oskarshamn</toponymName>
+<name>Oskarshamn</name>
+<lat>59.39306</lat>
+<lng>18.625</lng>
+<geonameId>3220440</geonameId>
+<countryCode>SE</countryCode>
+<countryName>Sweden</countryName>
+<fcl>P</fcl>
+<fcode>PPL</fcode>
+</geoname>
+<geoname>
+<toponymName>Oskarshamn</toponymName>
+<name>Oskarshamn</name>
+<lat>57.35</lat>
+<lng>16.5</lng>
+<geonameId>2686163</geonameId>
+<countryCode>SE</countryCode>
+<countryName>Sweden</countryName>
+<fcl>S</fcl>
+<fcode>AIRF</fcode>
+</geoname>
+<geoname>
+<toponymName>Oskarshamns Kommun</toponymName>
+<name>Oskarshamns Kommun</name>
+<lat>57.36667</lat>
+<lng>16.33333</lng>
+<geonameId>2686161</geonameId>
+<countryCode>SE</countryCode>
+<countryName>Sweden</countryName>
+<fcl>A</fcl>
+<fcode>ADM2</fcode>
+</geoname>
+<geoname>
+<toponymName>Oskarshamn socken</toponymName>
+<name>Oskarshamn socken</name>
+<lat>57.26553</lat>
+<lng>16.47559</lng>
+<geonameId>8126646</geonameId>
+<countryCode>SE</countryCode>
+<countryName>Sweden</countryName>
+<fcl>A</fcl>
+<fcode>ADM4</fcode>
+</geoname>
+</geonames>

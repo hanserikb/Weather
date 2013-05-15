@@ -1,0 +1,182 @@
+﻿@model WeatherApp.ViewModels.HomeIndexViewModel
+<div class="page-header noborder">
+    <h2>Forecast</h2>
+    <small>@Model.GeoName.countryName - @Model.GeoName.countyName - @Model.GeoName.name</small>
+    @Html.ActionLink("Bookmark me!", null, null, new {id = "addBookmark", @class = "label success", data_country = @Model.GeoName.countryName, data_county = @Model.GeoName.countyName, data_locationName = @Model.GeoName.name });
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>
+                  
+            </th>
+            <th>
+               Kl 00-06
+            </th>
+            <th>
+               Kl 06-12
+            </th>
+            <th>
+               Kl 12-18
+            </th>
+            <th>
+               Kl 18-00
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr class="day">
+    <td class="weekday">
+    Today
+    @foreach (var item in Model.WeatherDatas)
+    {        
+        if (item.period == 0 && item != Model.WeatherDatas.First())
+        {
+            @: </td>
+            @: </tr>
+             
+            @: <tr>
+            @: <td class="weekday">
+            if (@item.timeFrom.Date == DateTime.Today.Date.AddDays(1))
+            {
+                @:Tomorrow
+	        }
+            else
+            {
+                @item.timeFrom.ToString("MMMM dd, yyyy")
+            }
+        }
+        
+            
+        @: </td>
+        if (item == Model.WeatherDatas.First())
+        {
+            for (int i = 0; i < item.period; i++)
+            {
+			     <td>
+                 </td>
+            }
+
+        }
+        <td style="position: relative;">
+            <div class="temp">
+                @item.temperature &deg;
+            </div>
+            <div class="weatherIcon">
+            @switch (@item.symbolNumber)
+            {
+                case 01:
+                    <img src="@Url.Content("~/Content/weatherIcons/01d.png")" />
+                         break;
+                case 02:
+                    <img src="@Url.Content("~/Content/weatherIcons/02d.png")" />
+                         break;
+                case 03:
+                    <img src="@Url.Content("~/Content/weatherIcons/03d.png")" />
+                         break;
+                case 04:
+                    <img src="@Url.Content("~/Content/weatherIcons/04.png")" />
+                         break;
+                case 05:
+                    <img src="@Url.Content("~/Content/weatherIcons/05d.png")" />
+                         break;
+                case 06:
+                    <img src="@Url.Content("~/Content/weatherIcons/06d.png")" />
+                         break;
+                case 07:
+                    <img src="@Url.Content("~/Content/weatherIcons/07d.png")" />
+                         break;
+                case 08:
+                    <img src="@Url.Content("~/Content/weatherIcons/08d.png")" />
+                         break;
+                case 09:
+                    <img src="@Url.Content("~/Content/weatherIcons/09.png")" />
+                         break;
+                case 10:
+                    <img src="@Url.Content("~/Content/weatherIcons/10.png")" />
+                         break;
+                case 11:
+                    <img src="@Url.Content("~/Content/weatherIcons/11.png")" />
+                         break;
+                case 12:
+                    <img src="@Url.Content("~/Content/weatherIcons/12.png")" />
+                         break;
+                case 13:
+                    <img src="@Url.Content("~/Content/weatherIcons/13.png")" />
+                         break;
+                case 14:
+                    <img src="@Url.Content("~/Content/weatherIcons/14.png")" />
+                         break;
+                case 15:
+                    <img src="@Url.Content("~/Content/weatherIcons/15.png")" />
+                         break;
+                case 16:
+                    <img src="@Url.Content("~/Content/weatherIcons/16.png")" />
+                         break;
+                case 17:
+                    <img src="@Url.Content("~/Content/weatherIcons/17.png")" />
+                         break;
+                case 18:
+                    <img src="@Url.Content("~/Content/weatherIcons/18.png")" />
+                         break;
+                case 19:
+                    <img src="@Url.Content("~/Content/weatherIcons/19.png")" />
+                         break;
+                default:
+                    <img src="@Url.Content("~/Content/weatherIcons/09.png")" />
+                         break;
+            }
+            </div>
+            <div class="extraData">
+                <div class="innerExtraData">
+                    <ul>
+                        <li>Wind: @item.windDegrees &deg; @item.windSpeed m/s @item.windDirection </li>
+                        <li>Pressure: @item.pressure hPa</li>
+                        <li>Precipitation: @item.precipitation mm</li>
+                        <li>Temperature: @item.temperature &deg;</li>
+                    </ul>
+                    <div class="arrow">
+                    </div>
+                </div>
+            </div>
+        </td>
+    }
+    </tbody>
+</table>
+<script>
+    
+    $(function () {
+        // Modifierar adressfältets URL
+        bindToolTips();
+        window.history.pushState("Foo", "WeatherCast", "/Forecast/@Model.GeoName.countryName/@Model.GeoName.countyName/@Model.GeoName.name");
+
+        // Sätter kartan till ny position
+        var myLatLng = new google.maps.LatLng(@Model.GeoName.latitude, @Model.GeoName.longitude);
+        var options = {
+            zoom: 8,
+            center: myLatLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            disableDefaultUI: false,
+            draggable: false,
+            disableDoubleClickZoom: true,
+            scrollwheel: false
+        };   
+        
+        var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+
+        var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    animation: google.maps.Animation.BOUNCE 
+        });
+
+        // Scrollar ned till prognosen
+        $('html,body').animate({ scrollTop: $("#location").offset().top - 40 }, 'slow');
+
+        // Binder bokmärkeslänken
+        bindBookmarkLink();
+    });
+
+
+    
+</script>
